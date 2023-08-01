@@ -1,0 +1,17 @@
+{
+    "name": "boldy/bookmarks",
+    "authors": [
+        {
+            "name": "GGermanBoldyrev",
+            "email": "boldyrev_german@mail.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^6.3"
+    }
+}
