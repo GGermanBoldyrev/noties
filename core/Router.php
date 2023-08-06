@@ -5,12 +5,14 @@ namespace app\core;
 class Router
 {
     public Request $request;
+    public Response $response;
     protected array $routes = [];
 
     // Принимаем обьект Request и записываем в свойство
-    public function __construct(Request $request)
+    public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
+        $this->response = $response;
     }
 
     // Записываем get маршруты в массив
@@ -36,6 +38,7 @@ class Router
 
         // Fallback, если такой url не найден
         if (!$callback) {
+            $this->response->setStatusCode(404);
             return "Page not found";
         }
 
@@ -51,6 +54,25 @@ class Router
     // Функция для отображения view
     public function renderView($view)
     {
-        include_once "../views/$view.php";
+        $template = $this->renderTemplate();
+        $view = $this->renderOnlyView($view);
+        // Вставляем контент страницы в шаблон и рендерим его
+        return str_replace('{{content}}', $view, $template);
+    }
+
+    // Кэшируем шаблон
+    private function renderTemplate()
+    {
+        ob_start();
+        include_once Application::$ROOT_DIR . "/views/templates/main.php";
+        return ob_get_clean();
+    }
+
+    // Кэшируем контент страницы
+    private function renderOnlyView($view)
+    {
+        ob_start();
+        include_once Application::$ROOT_DIR . "/views/$view.php";
+        return ob_get_clean();
     }
 }

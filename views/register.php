@@ -35,12 +35,12 @@
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
+    font-size: 20px;
 }
 
 a {
     text-decoration: none;
     color: black;
-    font-size: 14px;
 }
 
 a:hover {
@@ -51,11 +51,6 @@ a:hover {
 body {
     background-color: #EBE9E9;
     color: #F3F8F2;
-}
-
-.container {
-    width: 840px;
-    margin: 0 auto;
 }
 
 main {
@@ -70,20 +65,25 @@ main {
     flex-direction: column;
     justify-content: center;
     background-color: #3581b8;
-    width: 350px;
+    width: 525px;
     color: black;
-    padding: 20px;
+    padding: 30px;
     border-radius: 10px;
 }
 
+.form a {
+    font-size: 18px;
+}
+
 .title {
-    font-size: 32px;
+    font-size: 48px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 input {
-    padding: 5px 10px;
+    font-size: 18px;
+    padding: 7px 14px;
 }
 
 input:focus {
@@ -91,21 +91,21 @@ input:focus {
 }
 
 .password {
-    margin: 10px 0;
+    margin: 15px 0;
 }
 
 .link {
-    margin-left: 2px;
-    margin-top: 1px;
+    margin-left: 3px;
+    margin-top: 2px;
 }
 
 button {
-    margin-top: 15px;
+    margin-top: 22px;
     background-color: #4CAF50;
     border: none;
     border-radius: 5px;
-    padding: 5px 0;
-    font-size: 14px;
+    padding: 7px 0;
+    font-size: 20px;
 }
 
 button:hover {

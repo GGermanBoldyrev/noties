@@ -3,7 +3,7 @@
 require "../vendor/autoload.php";
 use app\core\Application;
 
-$app = new Application();
+$app = new Application(dirname(__DIR__));
 
 // Записываем в массив routes
 $app->router->get('/', 'home'); 
