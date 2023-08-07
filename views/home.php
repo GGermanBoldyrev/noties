@@ -13,6 +13,7 @@
             <div class="note-edit"><a href="#">Edit</a></div>
             <div class="note-delete"><a href="#">Delete</a></div>
         </div>
+        <div><?=$name?></div>
     </div>
 </div>
 

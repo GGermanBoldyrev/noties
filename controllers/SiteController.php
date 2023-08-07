@@ -2,15 +2,9 @@
 
 namespace app\controllers;
 
+use app\core\Application;
+
 class SiteController
 {
-    public function handleRegistration()
-    {
-        return "Registered";
-    }
-
-    public function handleSingin()
-    {
-        return "Singed in";
-    }
+    // ???
 }

@@ -58,10 +58,10 @@ class Router
     }
 
     // Функция для отображения view
-    public function renderView($view)
+    public function renderView($view, $params = [])
     {
         $template = $this->renderTemplate();
-        $view = $this->renderOnlyView($view);
+        $view = $this->renderOnlyView($view, $params);
         // Вставляем контент страницы в шаблон и рендерим его
         return str_replace('{{content}}', $view, $template);
     }
@@ -75,8 +75,12 @@ class Router
     }
 
     // Кэшируем контент страницы
-    private function renderOnlyView($view)
+    private function renderOnlyView($view, $params)
     {
+        // Присваеваем переменным названия из массива $params
+        foreach ($params as $key => $value) {
+            $$key = $value;
+        }
         ob_start();
         include_once Application::$ROOT_DIR . "/views/$view.php";
         return ob_get_clean();
