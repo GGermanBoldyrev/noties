@@ -36,15 +36,21 @@ class Router
         // Получаем обьект Clousure
         $callback = $this->routes[$method][$path] ?? false;
 
-        // Fallback, если такой url не найден
+        // Fallback, если такой url не найден, (страница не найдена)
         if (!$callback) {
             $this->response->setStatusCode(404);
-            return "Page not found";
+            return $this->renderView('404');
         }
 
         // Если в роутере второй параметр строка, а не функция, то рендерим view
         if (is_string($callback)) {
             return $this->renderView($callback);
+        }   
+
+        // Если в роутере второй параметр массив, создаем экземпляр контроллера,
+        // Так как нельзя вызывать не статические методы не у экземпляра класса
+        if (is_array($callback)) {
+            $callback[0] = new $callback[0];
         }
 
         // Вызываем функцию Clousure

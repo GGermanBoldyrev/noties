@@ -1,5 +1,5 @@
 <div class="content">
-    <div class="title">
+    <div class="content-title">
         Welcome to Your Notes! All your notes in one place!
     </div>
     <div class="note">
@@ -26,7 +26,7 @@
         height: calc(100vh - 75px);
     }
 
-    .title {
+    .content-title {
         font-size: 42px;
         font-weight: 300;
     }
