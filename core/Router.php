@@ -16,13 +16,13 @@ class Router
     }
 
     // Записываем get маршруты в массив
-    public function get($path, $callback): void
+    public function get(string $path, $callback): void
     {
         $this->routes['get'][$path] = $callback;
     }
 
     // Записываем post маршруты в массив
-    public function post($path, $callback): void
+    public function post(string $path, $callback): void
     {
         $this->routes['post'][$path] = $callback;
     }
@@ -54,11 +54,11 @@ class Router
         }
 
         // Вызываем функцию Clousure
-        return call_user_func($callback);
+        return call_user_func($callback, $this->request, $this->response);
     }
 
     // Функция для отображения view
-    public function renderView($view, $params = [])
+    public function renderView(string $view, array $params = [])
     {
         $template = $this->renderTemplate();
         $view = $this->renderOnlyView($view, $params);
@@ -70,19 +70,19 @@ class Router
     private function renderTemplate()
     {
         ob_start();
-        include_once Application::$ROOT_DIR . "/views/templates/main.php";
+        include_once Application::$ROOT_DIR . "/views/templates/main-template.php";
         return ob_get_clean();
     }
 
     // Кэшируем контент страницы
-    private function renderOnlyView($view, $params)
+    private function renderOnlyView(string $view, array $params)
     {
         // Присваеваем переменным названия из массива $params
         foreach ($params as $key => $value) {
             $$key = $value;
         }
         ob_start();
-        include_once Application::$ROOT_DIR . "/views/$view.php";
+        include_once Application::$ROOT_DIR . "/views/pages/$view.php";
         return ob_get_clean();
     }
 }

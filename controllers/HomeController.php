@@ -2,12 +2,12 @@
 
 namespace app\controllers;
 
-use app\core\Application;
+use app\core\Controller;
 
-class HomeController
+class HomeController extends Controller
 {
-    public function index() 
+    public function index()
     {
-        return Application::$app->router->renderView('home');
+        return $this->render('home');
     }
 }

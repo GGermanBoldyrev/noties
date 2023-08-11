@@ -2,17 +2,19 @@
 
 namespace app\controllers;
 
-use app\core\Application;
+use app\core\Controller;
+use app\models\RegisterModel;
 
-class RegisterController
+class RegisterController extends Controller
 {
     public function index()
     {
-        return Application::$app->router->renderView('register');    
+        return $this->render('register');
     }
 
     public function store()
     {
+        $registerModel = new RegisterModel();
         return "Registered";
     }
 }
