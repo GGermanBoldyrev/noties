@@ -10,8 +10,13 @@ class RegisterModel extends Model
     public string $password;
     public string $confirmPassword;
 
+    public function validate()
+    {
+        return true;
+    }
+
     public function register()
     {
-        //
+        return true;
     }
 }

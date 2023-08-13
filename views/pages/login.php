@@ -1,6 +1,6 @@
 <main class="flex justify-center items-center flex-col h-[calc(100vh-85px)]">
     <form action="#" method="post" class="w-[550px] bg-blue-400 px-[30px] py-[30px] rounded">
-        <div class="text-white text-5xl text-center mb-[30px]">Login Form</div>
+        <div class="text-white text-5xl text-center mb-[30px]">Log In</div>
         <div class="flex flex-col [&>input]:py-1 [&>input]:px-2 [&>input]:rounded [&>input]:text-xl">
             <input type="text" name="email" placeholder="Email Address" class="focus:outline-none">
             <input type="password" name="password" placeholder="Password" class="mt-[15px] focus:outline-none">

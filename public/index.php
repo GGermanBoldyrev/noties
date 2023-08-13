@@ -18,8 +18,6 @@ $app->router->post('/login', [LoginController::class, 'store']);
 // Регистрация
 $app->router->get('/register', [RegisterController::class, 'index']);
 $app->router->post('/register', [RegisterController::class, 'store']);
-// Заметки
-$app->router->get('/bookmarks', 'bookmarks');
 
 // Старт приложения
 $app->run();
