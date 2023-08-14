@@ -53,7 +53,7 @@ class Router
             $callback[0] = new $callback[0];
         }
 
-        // Вызываем функцию Clousure
+        // Вызываем функцию Clousure, прокидываем Request и Response
         return call_user_func($callback, $this->request, $this->response);
     }
 

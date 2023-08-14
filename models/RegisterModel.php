@@ -10,13 +10,17 @@ class RegisterModel extends Model
     public string $password;
     public string $confirmPassword;
 
-    public function validate()
+    public function register()
     {
         return true;
     }
 
-    public function register()
+    public function rules(): array
     {
-        return true;
+        return [
+            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
+            'password' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 8], [self::RULE_MAX, 'max' => 255]],
+            'confirmPassword' => [self::RULE_REQUIRED, [self::RULE_MATCH, 'match' => 'password']]
+        ];
     }
 }
