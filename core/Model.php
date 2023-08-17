@@ -4,11 +4,13 @@ namespace app\core;
 
 abstract class Model
 {
+    // Правила валидации
     public const RULE_REQUIRED = "required";
     public const RULE_EMAIL = "email";
     public const RULE_MAX = "max";
     public const RULE_MIN = "min";
     public const RULE_MATCH = "match";
+    // Массив ошибок
     public array $errors = [];
 
     // Заполняем свойства обьекта данными из Request
@@ -41,18 +43,23 @@ abstract class Model
                 }
 
                 // Добавляем для каждого правила ошибку в случае появления
+                // Проверка на обязательное правило
                 if ($ruleName === self::RULE_REQUIRED && !$value) {
                     $this->addError($attribute, self::RULE_REQUIRED);
                 }
+                // Проверка на email
                 if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
                     $this->addError($attribute, self::RULE_EMAIL);
                 }
+                // Проверка на min длину
                 if ($ruleName === self::RULE_MIN && strlen($value) < $rule['min']) {
                     $this->addError($attribute, self::RULE_MIN, $rule);
                 }
+                // Проверка на max длину
                 if ($ruleName === self::RULE_MAX && strlen($value) > $rule['max']) {
                     $this->addError($attribute, self::RULE_MAX, $rule);
                 }
+                // Правило что соответствует
                 if ($ruleName === self::RULE_MATCH && $value !== $rule['match']) {
                     $this->addError($attribute, self::RULE_MATCH, $rule);
                 }

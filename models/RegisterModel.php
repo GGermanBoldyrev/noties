@@ -10,11 +10,13 @@ class RegisterModel extends Model
     public string $password;
     public string $confirmPassword;
 
+    // Метод регистрации
     public function register()
     {
         return true;
     }
 
+    // Правила для полей регистрации
     public function rules(): array
     {
         return [

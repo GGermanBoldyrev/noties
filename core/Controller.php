@@ -9,10 +9,4 @@ abstract class Controller
     {
         return Application::$app->router->renderView($view, $params);
     }
-
-    // Получаем body
-    public function getBody()
-    {
-        return Application::$app->request->getBody();
-    }
 }
