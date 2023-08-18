@@ -7,10 +7,10 @@ use app\core\Request;
 use app\models\RegisterModel;
 
 class RegisterController extends Controller
-{   
+{
     // Метод отображения формы регистрации
     public function index()
-    {   
+    {
         return $this->render('register');
     }
 
@@ -21,14 +21,23 @@ class RegisterController extends Controller
         $registerModel = new RegisterModel();
         // Подгружает данные из формы в модель
         $registerModel->loadData($request->getBody());
-        
-        // Валидируем данные с формы и вызываем метод регистрации
-        if ($registerModel->validate() && $registerModel->register()) {
-            // Если успешно - выводим страницу Success
-            return $this->render('helpers/success', ['text' => 'Your account has been created!']);
-        } 
-        
-        // При ошибки валидации или регистрации выводим страницу с ошибкой регистрации
-        return $this->render('helpers/reject', ['text' => "Registration failed!"]);
+
+        // Валидируем данные с формы
+        if (!$registerModel->validate()) {
+            // Если на момент валидации формы появились ошибки, то выводим форму с ошибками
+            return $this->render('register', [
+                'errors' => $registerModel->errors,
+                'email' => $registerModel->email,
+                'password' => $registerModel->password,
+                'confirmPassword' => $registerModel->confirmPassword
+            ]);
+        }
+        // Вызываем метод регистрации, при отказе - сообщаем об ошибке
+        if (!$registerModel->register()) {
+            return $this->render('helpers/reject', ['text' => 'Failed to create your account']);
+        }
+
+        // Если успешно - выводим страницу Success
+        return $this->render('helpers/success', ['text' => 'Your account has been created!']);
     }
 }
