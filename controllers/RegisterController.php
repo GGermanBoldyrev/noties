@@ -19,12 +19,12 @@ class RegisterController extends Controller
     {
         // Создаем модель регистрации
         $registerModel = new RegisterModel();
-        // Подгружает данные из формы в модель
+        // Подгружаем данные из формы в модель
         $registerModel->loadData($request->getBody());
 
-        // Валидируем данные с формы
+        // Валидируем данные с формы по заданным параметрам в модели
         if (!$registerModel->validate()) {
-            // Если на момент валидации формы появились ошибки, то выводим форму с ошибками
+            // Если на момент валидации данных с формы появились ошибки, то выводим форму регистрации заново, с ошибками
             return $this->render('register', [
                 'errors' => $registerModel->errors,
                 'email' => $registerModel->email,
@@ -32,12 +32,14 @@ class RegisterController extends Controller
                 'confirmPassword' => $registerModel->confirmPassword
             ]);
         }
-        // Вызываем метод регистрации, при отказе - сообщаем об ошибке
+        
+        // Вызываем метод регистрации
         if (!$registerModel->register()) {
+            // При ошибке - выводим страницу с ошибкой регистрации 
             return $this->render('helpers/reject', ['text' => 'Failed to create your account']);
         }
 
-        // Если успешно - выводим страницу Success
+        // Если регистрация прошла успешно - выводим страницу Success
         return $this->render('helpers/success', ['text' => 'Your account has been created!']);
     }
 }

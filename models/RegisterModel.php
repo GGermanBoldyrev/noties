@@ -10,7 +10,7 @@ class RegisterModel extends Model
     public string $email;
     public string $password;
     public string $confirmPassword;
-
+    
     // Метод регистрации
     public function register()
     {
@@ -64,11 +64,11 @@ class RegisterModel extends Model
     // Валидируем подтверждение пароля (required, matches password)
     private function confirmPassword(string $confirmPassword): void
     {
-        // Если подтверждение пароля пустое
+        // Если поле подтверждения пароля пустое
         if (empty($confirmPassword)) {
             $this->addError(Rule::required, 'confirmPassword');
         }
-        // Если совпадает с паролем
+        // Если поле не пустое и поле не совпадает с паролем
         if ($confirmPassword && $confirmPassword !== $this->password) {
             $this->addError(Rule::match, 'confirmPassword', ['match' => 'password']);
         }

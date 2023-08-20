@@ -33,7 +33,7 @@ class Router
         // Получаем метод, и пусть с которого отправили запрос
         $path = $this->request->getPath();
         $method = $this->request->getMethod();
-        // Получаем обьект Clousure
+        // Получаем обьект Closure
         $callback = $this->routes[$method][$path] ?? false;
 
         // Fallback, если такой url не найден, (страница не найдена)
@@ -53,7 +53,7 @@ class Router
             $callback[0] = new $callback[0];
         }
 
-        // Вызываем функцию Clousure, прокидываем Request и Response
+        // Вызываем функцию Closure, прокидываем Request и Response
         return call_user_func($callback, $this->request, $this->response);
     }
 
