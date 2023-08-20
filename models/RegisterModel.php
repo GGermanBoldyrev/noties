@@ -25,7 +25,7 @@ class RegisterModel extends Model
         // Password
         $this->validatePassword($this->password);
         // Confirm password
-        $this->confirmPassword($this->confirmPassword);
+        $this->validateConfirmPassword($this->confirmPassword);
 
         // Возвращает bool в зависимости от массива errors[]
         return empty($this->errors);
@@ -62,7 +62,7 @@ class RegisterModel extends Model
     }
 
     // Валидируем подтверждение пароля (required, matches password)
-    private function confirmPassword(string $confirmPassword): void
+    private function validateConfirmPassword(string $confirmPassword): void
     {
         // Если поле подтверждения пароля пустое
         if (empty($confirmPassword)) {

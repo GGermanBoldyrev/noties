@@ -4,10 +4,10 @@ namespace app\controllers;
 
 use app\core\Controller;
 
-class HomeController extends Controller
+class ProfileController extends Controller
 {
     public function index()
     {
-        return $this->render('home');
+        return $this->render('profile');
     }
 }
