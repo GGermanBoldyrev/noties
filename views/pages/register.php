@@ -1,8 +1,8 @@
 <main class="flex justify-center items-center flex-col h-[calc(100vh-85px)]">
     <form action="#" method="post" class="w-[550px] bg-blue-400 px-[30px] py-[30px] rounded">
-        <!--Header-->
+        <!-- Header -->
         <div class="text-5xl text-center mb-[30px]">Register</div>
-        <!--Input Block-->
+        <!-- Input Block -->
         <div class="flex flex-col [&>label>input]:py-1 [&>label>input]:px-2 [&>label>input]:rounded [&>label>input]:text-xl">
             <!-- First input -->
             <label>
@@ -31,14 +31,14 @@
                 <?= $errors['confirmPassword'] ?? '' ?>
             </div>
         </div>
-        <!--Submit Block-->
+        <!-- Submit Block -->
         <div class="w-full text-center mt-[10px]">
-            <!--Submit Button-->
+            <!-- Submit Button -->
             <button type="submit" class="bg-green-400 py-[2px] w-full rounded hover:bg-green-500 duration-200">
                 Register
             </button>
         </div>
-        <!--Link to SignUp-->
+        <!-- Link to SignUp -->
         <a href="/login" class="text-lg ml-[5px] hover:text-white duration-200">Have an account? Login now</a>
     </form>
 </main>

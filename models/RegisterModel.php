@@ -4,17 +4,19 @@ namespace app\models;
 
 use app\core\Model;
 use app\Enums\Rule;
+use app\core\DBConnection;
 
 class RegisterModel extends Model
 {
     public string $email;
     public string $password;
     public string $confirmPassword;
-    
+
     // TODO: Метод регистрации
     public function register()
     {
-        return false;
+        $pdo = new DBConnection();
+        $pdo->getAll('users');
     }
 
     // Validate data, we return the result as bool
