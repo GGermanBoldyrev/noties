@@ -10,4 +10,11 @@ class ProfileController extends Controller
     {
         return $this->render('profile');
     }
+
+    // TODO implement this method
+    public function updateImage() {}
+
+    // TODO implement this method
+    public function updatePassword() {}
+
 }

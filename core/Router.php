@@ -8,65 +8,64 @@ class Router
     public Response $response;
     protected array $routes = [];
 
-    // Принимаем обьект Request и записываем в свойство
     public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
         $this->response = $response;
     }
 
-    // Записываем get маршруты в массив
+    // Write all 'get' routes to an array
     public function get(string $path, $callback): void
     {
         $this->routes['get'][$path] = $callback;
     }
 
-    // Записываем post маршруты в массив
+    // Write all 'post' routes to an array
     public function post(string $path, $callback): void
     {
         $this->routes['post'][$path] = $callback;
     }
 
-    // Вызывается через app->run()
+    // Calls from app->run()
     public function resolve()
     {
-        // Получаем метод, и пусть с которого отправили запрос
+        // Get request method and path
         $path = $this->request->getPath();
         $method = $this->request->getMethod();
-        // Получаем обьект Closure
+        // We get Closure object
         $callback = $this->routes[$method][$path] ?? false;
 
-        // Fallback, если такой url не найден, (страница не найдена)
+        // Fallback page if url not found, (page not found)
         if (!$callback) {
             $this->response->setStatusCode(404);
             return $this->renderView('404');
         }
 
-        // Если в роутере второй параметр строка, а не функция, то рендерим view
+        // If the second parameter is a string (not a function) we just render view
         if (is_string($callback)) {
             return $this->renderView($callback);
         }   
 
-        // Если в роутере второй параметр массив, создаем экземпляр контроллера,
-        // Так как нельзя вызывать не статические методы не у экземпляра класса
+        // If the second parameter is an array, we create a controller instance,
+        // We can't call non-static methods without class instance
         if (is_array($callback)) {
             $callback[0] = new $callback[0];
         }
 
-        // Вызываем функцию Closure, прокидываем Request и Response
+        // We call Closure function, we pass Request and Response to params (use them in controller methods)
         return call_user_func($callback, $this->request, $this->response);
     }
 
-    // Функция для отображения view
+    // Method to render full view with a template
     public function renderView(string $view, array $params = [])
     {
         $template = $this->renderTemplate();
         $view = $this->renderOnlyView($view, $params);
-        // Вставляем контент страницы в шаблон и рендерим его
+        // Pass page content to a template and render it
         return str_replace('{{content}}', $view, $template);
     }
 
-    // Кэшируем шаблон
+    // Cache template
     private function renderTemplate()
     {
         ob_start();
@@ -74,10 +73,10 @@ class Router
         return ob_get_clean();
     }
 
-    // Кэшируем контент страницы
+    // We cache page content
     private function renderOnlyView(string $view, array $params)
     {
-        // Присваеваем переменным названия из массива $params
+        // We set names to a variables in view using $params[] array
         foreach ($params as $key => $value) {
             $$key = $value;
         }

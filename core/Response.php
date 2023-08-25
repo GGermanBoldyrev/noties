@@ -4,8 +4,8 @@ namespace app\core;
 
 class Response
 {
-    // Устанавливает код ответа
-    public function setStatusCode($code)
+    // Set response code
+    public function setStatusCode($code): void
     {
         http_response_code($code);
     }

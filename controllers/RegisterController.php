@@ -8,23 +8,23 @@ use app\models\RegisterModel;
 
 class RegisterController extends Controller
 {
-    // Метод отображения формы регистрации
+    // Method to show registration form
     public function index()
     {
         return $this->render('register');
     }
 
-    // Метод создания нового юзера в бд
+    // Method to create a new User
     public function store(Request $request)
     {
-        // Создаем модель регистрации
+        // Create Register model
         $registerModel = new RegisterModel();
-        // Подгружаем данные из формы в модель
+        // Load all form data to Register model
         $registerModel->loadData($request->getBody());
 
-        // Валидируем данные с формы по заданным параметрам в модели
+        // Validate all form data in Register model "validate" method
         if (!$registerModel->validate()) {
-            // Если на момент валидации данных с формы появились ошибки, то выводим форму регистрации заново, с ошибками
+            // If we got some errors after validation, we show register form once again with occurred errors
             return $this->render('register', [
                 'errors' => $registerModel->errors,
                 'email' => $registerModel->email,
@@ -33,13 +33,13 @@ class RegisterController extends Controller
             ]);
         }
         
-        // Вызываем метод регистрации
+        // Call Register model "register" method
         if (!$registerModel->register()) {
-            // При ошибке - выводим страницу с ошибкой регистрации 
+            // If the error occurred - we show Registration failed page
             return $this->render('helpers/reject', ['text' => 'Failed to create your account']);
         }
 
-        // Если регистрация прошла успешно - выводим страницу Success
+        // If "validate" and "register" methods passed correctly - we show Success page
         return $this->render('helpers/success', ['text' => 'Your account has been created!']);
     }
 }

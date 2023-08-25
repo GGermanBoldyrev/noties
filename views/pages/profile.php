@@ -17,7 +17,7 @@
                 <div>
                     <!--Email-->
                     <div>Email: boldyrev_german@mail.ru</div>
-                    <!--Пароль-->
+                    <!--Password-->
                     <div class="flex mt-[5px]">
                         <div>Password: ******</div>
                         <div class="text-lg ml-[30px]">
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <!--Кнопка log out-->
+                <!--Button log out-->
                 <div class="text-lg">
                     <a href="#" class="border border-black px-[6px] rounded hover:text-white hover:border-white
                                        duration-200">

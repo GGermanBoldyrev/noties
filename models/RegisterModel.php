@@ -11,64 +11,60 @@ class RegisterModel extends Model
     public string $password;
     public string $confirmPassword;
     
-    // Метод регистрации
+    // TODO: Метод регистрации
     public function register()
     {
         return false;
     }
 
-    // Валидируем данные
+    // Validate data, we return the result as bool
     public function validate(): bool
     {
-        // Email
         $this->validateEmail($this->email);
-        // Password
         $this->validatePassword($this->password);
-        // Confirm password
         $this->validateConfirmPassword($this->confirmPassword);
-
-        // Возвращает bool в зависимости от массива errors[]
+        // Return false if there are errors
         return empty($this->errors);
     }
 
-    // Валидируем email (required, valid)
+    // Validate email (required, valid)
     private function validateEmail(string $email): void
     {
-        // Проверяем пустой он или нет
+        // Check if email field in form is empty
         if (empty($email)) {
             $this->addError(Rule::required, 'email');
         }
-        // Если email существует, то соответствует ли правилам
+        // If email is not empty, we validate it with the following rules
         if ($email && !filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
             $this->addError(Rule::email, 'email');
         }
     }
 
-    // Валидируем пароль (required, min - 8, max - 32)
+    // Validate password (required, min - 8, max - 32)
     private function validatePassword(string $password): void
     {
-        // Если пароль пустой
+        // Check if password field in form is empty
         if (empty($password)) {
             $this->addError(Rule::required, 'password');
         }
-        // Если пароль меньше 8 символов
+        // If password is less than 8
         if (0 < strlen($password) && strlen($password) <= 7) {
             $this->addError(Rule::min, 'password', ['min' => 8]);
         }
-        // Если пароль больше 32 символов
+        // If password is greater than 32
         if (strlen($password) > 32) {
             $this->addError(Rule::max, 'password', ['max' => 32]);
         }
     }
 
-    // Валидируем подтверждение пароля (required, matches password)
+    // Validate confirm password (required, matches password)
     private function validateConfirmPassword(string $confirmPassword): void
     {
-        // Если поле подтверждения пароля пустое
+        // Check if password confirm field in form is empty
         if (empty($confirmPassword)) {
             $this->addError(Rule::required, 'confirmPassword');
         }
-        // Если поле не пустое и поле не совпадает с паролем
+        // If the field is not empty and field matches password field above
         if ($confirmPassword && $confirmPassword !== $this->password) {
             $this->addError(Rule::match, 'confirmPassword', ['match' => 'password']);
         }

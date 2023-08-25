@@ -2,7 +2,7 @@
 
 namespace app\Enums;
 
-// Enum для упрощения работы с правилами
+// For validation error messages
 enum Rule: string
 {
     case required = "This field is required";

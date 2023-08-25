@@ -4,29 +4,30 @@ namespace app\core;
 
 class Request
 {
-    // Функция для получения пути
+    // Method to get path
     public function getPath(): string
     {
-        // Получаем путь или "/"
+        // We get path or "/"
         $path = $_SERVER['REQUEST_URI'] ?? '/';
-        // Ищем позицию "?"
+        // Search for "?" position
         $position = strpos($path, '?');
 
-        // Если нет get параметра, возаращаем просто url
+        // If there are no get params, we just simply return url
         if (!$position) {
             return $path;
         }
 
-        // Если есть get параметр, обрезаем url до "?"
+        // If get params are exist, substring url up to "?"
         return substr($path, 0, $position);
     }
 
-    // Получем метод запроса в lowercase
+    // We get request method (lowercase)
     public function getMethod(): string
     {
         return strtolower($_SERVER['REQUEST_METHOD']);
     }
 
+    // Get data from request and return an array
     public function getBody(): array
     {
         $body = [];
