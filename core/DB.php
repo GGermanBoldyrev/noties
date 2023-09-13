@@ -10,10 +10,10 @@ class DB
     public PDO $db;
 
     // Create a new PDO instance
-    public function __construct(array $config)
+    public function __construct()
     {
         // New PDO connection settings
-        $dsn = "mysql:host=" . $config['DB_HOST'] . ";dbname=" . $config['DB_DATABASE'] . ";charset=utf-8";
+        $dsn = "mysql:host=" . $_ENV['DB_HOST'] . ";dbname=" . $_ENV['DB_DATABASE'] . ";charset=utf-8";
         $opt = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -21,6 +21,6 @@ class DB
         ];
 
         // Create PDO instance
-        $this->db = new PDO($dsn, $config['DB_USERNAME'], $config['DB_PASSWORD'], $opt);
+        $this->db = new PDO($dsn, $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD'], $opt);
     }
 }
