@@ -7,13 +7,13 @@ use PDO;
 class DB
 {
     // PDO instance
-    private PDO $db;
+    public PDO $db;
 
     // Create a new PDO instance
-    public function __construct(string $host, string $dbname, string $username, string $password, string $charset = 'utf-8')
+    public function __construct(array $config)
     {
         // New PDO connection settings
-        $dsn = 'mysql:host=' . $host . ';dbname=' . $dbname . ';charset=' . $charset;
+        $dsn = "mysql:host=" . $config['DB_HOST'] . ";dbname=" . $config['DB_DATABASE'] . ";charset=utf-8";
         $opt = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -21,6 +21,6 @@ class DB
         ];
 
         // Create PDO instance
-        $this->db = new PDO($dsn, $username, $password, $opt);
+        $this->db = new PDO($dsn, $config['DB_USERNAME'], $config['DB_PASSWORD'], $opt);
     }
 }

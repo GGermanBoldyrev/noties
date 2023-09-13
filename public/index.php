@@ -11,7 +11,13 @@ use app\core\Application;
 use app\controllers\LoginController;
 use app\controllers\RegisterController;
 use app\controllers\ProfileController;
+use Dotenv\Dotenv;
 
+// Load env configuration
+$dotenv = Dotenv::createImmutable(dirname(__DIR__, 1));
+$dotenv->safeLoad();
+
+// Create an instance of App
 $app = new Application(dirname(__DIR__));
 
 // Write routes to an array
