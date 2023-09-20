@@ -3,6 +3,7 @@
 namespace app\core;
 
 use PDO;
+use PDOException;
 
 class DB
 {
@@ -13,14 +14,18 @@ class DB
     public function __construct()
     {
         // New PDO connection settings
-        $dsn = "mysql:host=" . $_ENV['DB_HOST'] . ";dbname=" . $_ENV['DB_DATABASE'] . ";charset=utf-8";
+        $dsn = "mysql:host=" . $_ENV['DB_HOST'] . ";dbname=" . $_ENV['DB_DATABASE'] . ";charset=UTF8";
         $opt = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES => false
         ];
 
-        // Create PDO instance
-        $this->db = new PDO($dsn, $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD'], $opt);
+        // Try to create PDO instance
+        try {
+            $this->db = new PDO($dsn, $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD'], $opt);
+        } catch (PDOException $ex) {
+            die($ex->getMessage() . ". Failed to create database connection. Check your .env connetion parameters.");
+        }
     }
 }

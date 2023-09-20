@@ -13,9 +13,14 @@ use app\controllers\RegisterController;
 use app\controllers\ProfileController;
 use Dotenv\Dotenv;
 
-// Load env configuration
+// Load env configuration to work with database
 $dotenv = Dotenv::createImmutable(dirname(__DIR__, 1));
-$dotenv->safeLoad();
+// Try to load env config file
+try {
+    $dotenv->load();
+} catch (Exception $ex) {
+    die($ex->getMessage() . ". You have to add .env file to you root folder.");
+}
 
 // Create an instance of App
 $app = new Application(dirname(__DIR__));
