@@ -2,6 +2,7 @@
 
 namespace app\core;
 
+use Exception;
 use PDO;
 use PDOException;
 
@@ -22,10 +23,6 @@ class DB
         ];
 
         // Try to create PDO instance
-        try {
-            $this->db = new PDO($dsn, $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD'], $opt);
-        } catch (PDOException $ex) {
-            die($ex->getMessage() . ". Failed to create database connection. Check your .env connetion parameters.");
-        }
+        $this->db = new PDO($dsn, $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD'] = '', $opt);
     }
 }
